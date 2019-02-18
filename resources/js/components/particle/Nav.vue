@@ -12,7 +12,12 @@
                         :key="universityName.university_name"
                         :value="universityName.university_name"
                         v-for="universityName in universityNames">
-                            {{ universityName.university_name }}
+                            <p v-if="universityName.university_name == user_university" style="background-color:yellow">
+                                {{ universityName.university_name }}
+                            </p>
+                            <p v-else>
+                                {{ universityName.university_name }}
+                            </p>
                         </b-dropdown-item>
                     </div>
                 </b-nav-item-dropdown>
@@ -33,9 +38,10 @@
                     <template slot="button-content">
                         <em>User</em>
                     </template>
-                    <b-dropdown-item to="/login">LogIn</b-dropdown-item>
-                    <b-dropdown-item to="/joinus">SignUp</b-dropdown-item>
-                    <b-dropdown-item to="/mypage">mypage</b-dropdown-item>
+                    <b-dropdown-item v-if="this.$userId" href="/logout">LogOut</b-dropdown-item>
+                    <b-dropdown-item v-if="this.$userId" to="/joinus">SignUp</b-dropdown-item>
+                    <b-dropdown-item v-if="!this.$userId" to="/login">LogIn</b-dropdown-item>
+                    <b-dropdown-item v-if="!this.$userId" to="/mypage">mypage</b-dropdown-item>
                 </b-nav-item-dropdown>
             </b-navbar-nav>
         </b-collapse>
@@ -48,9 +54,13 @@ export default {
     data() {
         return {
           universityNames: null,
+          user_university: null,
         }
     },
     mounted(){
+        var temp = JSON.parse(this.$userId)
+        console.log('dddd'+this.$userCheck)
+        this.user_university = temp.university
         axios.get('/getUniversityNames').then(response => (
             this.universityNames = response.data,
             // console.log(response)

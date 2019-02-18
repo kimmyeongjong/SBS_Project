@@ -41,10 +41,41 @@ class BoardController extends Controller
     }
     public function passRoom(Request $request)
     {
-        $studyGroup =
+        $passRoom =
             DB::table('university_boards')
             ->where('subject','pass_room')
             ->get();
-        return $studyGroup;
+        return $passRoom;
+    }
+
+    public function allBoards(Request $request)
+    {
+        if($request->has('name')){
+
+        }else{
+            $products =
+                DB::table('products')
+                ->get();
+            $roommate =
+                DB::table('university_boards')
+                ->where('subject','search_roommate')
+                ->get();
+            $studyGroup =
+                DB::table('university_boards')
+                ->where('subject','study_group')
+                ->get();
+            $passRoom =
+                DB::table('university_boards')
+                ->where('subject','pass_room')
+                ->get();
+
+            $allBoards = array(
+                'products' => $products,
+                'roommates' => $roommate,
+                'studyGroups' => $studyGroup,
+                'passRooms' => $passRoom,
+            );
+        }//else end
+        return $allBoards;
     }
 }

@@ -13,6 +13,9 @@ import Main from './components/main/main.vue';
 import Login from './components/user/Login.vue';
 import JoinUs from './components/user/JoinUs.vue';
 import University from './components/board/UniversityBoard.vue';
+import AllSBSBoard from './components/board/AllSBSBoard.vue';
+import Product from './components/board/Product.vue';
+import WriteSBS from './components/board/WriteSBS.vue';
 
 require('./bootstrap');
 
@@ -24,16 +27,22 @@ Vue.use(BootstrapVue);
 export const router = new VueRouter({
     mode : 'history',
     routes : [{
-        path: '/', component: Main,
+        path: '/', component: Main, meta:{ auth: false },
     },{
-        path: '/login', component: Login
+        path: '/login', component: Login, meta:{ auth: false },
     },{
-        path:'/joinus',component: JoinUs
+        path:'/joinus',component: JoinUs, meta:{ auth: false },
     },{
-        path:'/university',component: University
+        path:'/university',component: University, meta:{ auth: false },
     },{
-        path:'/university/:university_num',component: University
-    },]
+        path:'/university/:university_num',component: University, meta:{ auth: false },
+    },{
+        path: '/allsbs', component: AllSBSBoard, meta:{ auth: false },
+    },{
+        path: '/allsbs/:product_num', component: Product, meta:{ auth: false },
+    },{
+        path: '/writesbs', component: WriteSBS, meta:{ auth: false },
+    }]
 });
 
 

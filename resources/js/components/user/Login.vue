@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import {store} from '../../index.js';
 export default {
     data(){
           return {
@@ -36,10 +35,10 @@ export default {
                   remember:true
               },
               checkLogin : false,
-              tempValue : '<?= Auth::check(); ?>',
           }
       },
       mounted(){
+
       },
       methods: {
           loginPost(){
@@ -49,14 +48,11 @@ export default {
                   // console.log(response.data);
                   if (response.data == 1) {
                       // console.log(thisVue.checkLogin);
-                      // console.log(thisVue.tempValue);
                       thisVue.checkLogin = true;
-                      store.getters.return_state
-                      alert('fjldk');
+                      alert('로그인 완료');
                       window.location = '/';
                   }
                   // console.log(thisVue.checkLogin);
-                  // console.log(thisVue.tempValue);
               });
           },
           logoutGet(){

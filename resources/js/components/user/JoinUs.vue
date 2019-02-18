@@ -47,6 +47,8 @@ export default {
         password:'',
         sex:'',
         university:'',
+        address:'',
+        success: false
       },
       show: true,
       universityNames: null,
@@ -62,6 +64,25 @@ export default {
   },
   methods: {
     register(){
+            var app = this
+            this.$auth.register({
+                data: {
+                    id: app.id,
+                    name: app.name,
+                    email: app.email,
+                    password: app.password,
+                    sex: app.sex,
+                    university: app.university,
+                    address: app.address,
+                },
+                success: function () {
+                    app.success = true;
+                    console.log('ok')
+                },
+                error: function (resp) {
+                    console.log(resp.response.data)
+                }
+            });
             let thisVue = this;
             this.axios.post('/register',thisVue.joinUsDetails).then(response => {
             console.log(response.data);

@@ -5,6 +5,7 @@
             <router-view>
             </router-view>
         </div>
+        <foot></foot>
     </div>
 </template>
 

@@ -5,14 +5,16 @@ import VueAxios from 'vue-axios';
 import axios from 'axios';
 import VModal from 'vue-js-modal';
 import BootstrapVue from 'bootstrap-vue';
+
 import {store} from './index.js';
 import Vuex from 'vuex';
 
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbvue/build/css/mdb.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 import Routes from './routes.js';
-
 import App from './app.vue';
 
 // import Vuetify from 'vuetify';
@@ -26,6 +28,8 @@ Vue.use(VModal);
 Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+
+
 Vue.use(Vuex);
 
 export const EventBus = new Vue();
@@ -40,6 +44,10 @@ export const EventBus = new Vue();
 // require('./bootstrap');
 
 Vue.component('navs', require('./components/particle/Nav.vue').default);
+
+Vue.component('foot', require('./components/particle/Footer.vue').default);
+
+Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 
 // window.Vue = require('vue');
 

@@ -8,9 +8,6 @@
                     <img src="/images/logo/logo3.png" alt="used auction logo" style="width:30%">
                 </td>
                 <td style="width:900px">
-                    <div v-if="test">
-                        <marquee scrollamount=8>속도 5~ </marquee>
-                    </div>
                 </td>
             </tr>
         </table>
@@ -130,13 +127,35 @@
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-roommate" role="tabpanel" aria-labelledby="nav-roommate-tab">
-
+                    <template>
+                        <b-table striped hover :items="roommate"></b-table>
+                    </template>
                 </div>
-                <div class="tab-pane fade" id="nav-passroom" role="tabpanel" aria-labelledby="nav-passroom-tab">2222</div>
-                <div class="tab-pane fade" id="nav-recommendrecipe" role="tabpanel" aria-labelledby="nav-recommendrecipe-tab">33333</div>
-                <div class="tab-pane fade" id="nav-study" role="tabpanel" aria-labelledby="nav-study-tab">ㄹㄹㄹ</div>
-                <div class="tab-pane fade" id="nav-universityboard" role="tabpanel" aria-labelledby="nav-universityboard-tab">ㅎㅎㅎㅎ</div>
-                <div class="tab-pane fade" id="nav-freeboard" role="tabpanel" aria-labelledby="nav-freeboard-tab">ㅁㅁㅁㅁㅁ</div>
+                <div class="tab-pane fade" id="nav-passroom" role="tabpanel" aria-labelledby="nav-passroom-tab">
+                    <template>
+                        <b-table striped hover :items="passRoom"></b-table>
+                    </template>
+                </div>
+                <div class="tab-pane fade" id="nav-recommendrecipe" role="tabpanel" aria-labelledby="nav-recommendrecipe-tab">
+                    <template>
+                        <b-table striped hover :items="passroom"></b-table>
+                    </template>
+                </div>
+                <div class="tab-pane fade" id="nav-study" role="tabpanel" aria-labelledby="nav-study-tab">
+                    <template>
+                        <b-table striped hover :items="studyGroup"></b-table>
+                    </template>
+                </div>
+                <div class="tab-pane fade" id="nav-universityboard" role="tabpanel" aria-labelledby="nav-universityboard-tab">
+                    <template>
+                        <b-table striped hover :items="passroom"></b-table>
+                    </template>
+                </div>
+                <div class="tab-pane fade" id="nav-freeboard" role="tabpanel" aria-labelledby="nav-freeboard-tab">
+                    <template>
+                        <b-table striped hover :items="passroom"></b-table>
+                    </template>
+                </div>
             </div>
         </div>
         <br><br><br><br><br><br>
@@ -163,6 +182,10 @@ export default {
     },data(){
         return{
             temp : false,
+            products:[],
+            roommate:[],
+            studyGroup:[],
+            passRoom:[],
             // method에서 사용할 변수를 정의하거나 템플릿 문법에서 사용할 변수 정의
         }
     },methods: {
@@ -184,7 +207,17 @@ export default {
         }
     },
     mounted(){
-        this.checkTest();
+        console.log("1---------")
+        console.log(this.$userId)
+        console.log("2---------")
+        console.log(typeof this.$userId)
+        axios.get('/allboards').then(response => (
+            this.products = response.data.products,
+            this.roommate = response.data.roommates,
+            this.studyGroup = response.data.studyGroups,
+            this.passRoom = response.data.passRooms
+        ))
+
     }
 }
 var availableTags = [];

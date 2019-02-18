@@ -7,28 +7,40 @@
         <b-collapse id="collapse1" class="mt-2">
             <div>
                 <form class="" @submit.prevent="getProducts" method="post">
-                <table>
-                    <tr>
-                        <td>
-                            <select class="form-control" id="university" name="university">
-                                <option value="category.category_num" v-for="category in categories[0]"> {{ category.category_name }} </option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control" id="university" name="university">
-                                <option value="category.category_num" v-for="category in categories[1]"> {{ category.category_name }} </option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control" id="university" name="university">
-                                <option value="category.category_num" v-for="category in categories[2]"> {{ category.category_name }} </option>
-                            </select>
-                        </td>
-                        <td>
-                            <b-btn right type="submit" name="button">fdskljflk</b-btn>
-                        </td>
-                    </tr>
-                </table>
+                <b-navbar toggleable="md" type="dark" variant="primary">
+                    <b-navbar-toggle target="nav_collapse">
+                    </b-navbar-toggle>
+                    <b-collapse is-nav id="nav_collapse">
+                        <b-navbar-nav>
+                            <b-nav-item>
+                                <select class="form-control" id="university" name="university">
+                                    <option value="category.category_num" v-for="category in categories[0]"> {{ category.category_name }} </option>
+                                </select>
+                            </b-nav-item>
+                            <b-nav-item>
+                                <select class="form-control" id="university" name="university">
+                                    <option value="category.category_num" v-for="category in categories[1]"> {{ category.category_name }} </option>
+                                </select>
+                            </b-nav-item>
+                            <b-nav-item>
+                                <select class="form-control" id="university" name="university">
+                                    <option value="category.category_num" v-for="category in categories[2]"> {{ category.category_name }} </option>
+                                </select>
+                            </b-nav-item>
+                        </b-navbar-nav>
+                        <b-navbar-nav class="ml-auto">
+                            <b-nav-item right>
+                                <b-btn right type="submit" name="button">검색</b-btn>
+                            </b-nav-item>
+                            <b-nav-item right>
+                                <b-btn right to="/allsbs" type="button" name="button">전체보기</b-btn>
+                            </b-nav-item>
+                            <b-nav-item right>
+                                <b-btn right to="/writesbs" type="button" name="button">글쓰기</b-btn>
+                            </b-nav-item>
+                        </b-navbar-nav>
+                    </b-collapse>
+                </b-navbar>
             </form>
                 <template>
                     <b-table striped hover :items="products"></b-table>
@@ -71,8 +83,7 @@ export default {
     // 카테고리 클릭시 변경
     data() {
         return {
-            categories:[
-            ],
+            categories:[],
             products:[],
             roommate:[],
             studyGroup:[],
@@ -83,22 +94,29 @@ export default {
         }
     },
     mounted() {
-        axios.get('/products').then(response => (
-            this.products = response.data,
-            console.log(this.products)
+        axios.get('/allboards').then(response => (
+            this.products = response.data.products,
+            this.roommate = response.data.roommates,
+            this.studyGroup = response.data.studyGroups,
+            this.passRoom = response.data.passRooms
         ))
-        axios.get('/roommate').then(response => (
-            this.roommate = response.data,
-            console.log(this.products)
-        ))
-        axios.get('/studygroup').then(response => (
-            this.studyGroup = response.data,
-            console.log(this.products)
-        ))
-        axios.get('/passroom').then(response => (
-            this.passRoom = response.data,
-            console.log(this.products)
-        )),
+        //
+        // axios.get('/products').then(response => (
+        //     this.products = response.data,
+        //     console.log(this.products)
+        // ))
+        // axios.get('/roommate').then(response => (
+        //     this.roommate = response.data,
+        //     console.log(this.products)
+        // ))
+        // axios.get('/studygroup').then(response => (
+        //     this.studyGroup = response.data,
+        //     console.log(this.products)
+        // ))
+        // axios.get('/passroom').then(response => (
+        //     this.passRoom = response.data,
+        //     console.log(this.products)
+        // )),
 
         axios.get('/getcategory').then(response => (
             this.categories[0] = response.data.first,
